@@ -2,7 +2,7 @@
 import pandas as pd
 from api import datos
 
-def filtrar_registros(departamento: str, municipio: str, cultivo: str, numero_registros: int = 10) -> pd.DataFrame:
+def filtrar_registros(departamento: str, municipio: str, cultivo: str, numero_registros: int) -> pd.DataFrame:
     base_de_datos = datos.cargar_datos()
 
     registros_filtrados = base_de_datos[
@@ -10,7 +10,7 @@ def filtrar_registros(departamento: str, municipio: str, cultivo: str, numero_re
         (base_de_datos["Municipio"].str.upper() == municipio.upper()) &
         (base_de_datos["Cultivo"].str.upper() == cultivo.upper())
     ]
-
+    
     return registros_filtrados.head(numero_registros)
 
 def calcular_mediana(registros_filtrados):
@@ -21,7 +21,6 @@ def calcular_mediana(registros_filtrados):
     ]
 
     registros_filtrados[columnas_edaficas] = registros_filtrados[columnas_edaficas].apply(pd.to_numeric, errors="coerce")
-
     medianas = registros_filtrados[columnas_edaficas].median()
 
     return {
@@ -30,7 +29,7 @@ def calcular_mediana(registros_filtrados):
     "Mediana Potasio (K)": medianas["Potasio (K) intercambiable cmol(+)/kg"]
     }
 
-def consulta_completa(departamento: str, municipio: str, cultivo: str, numero_registros: int = 10) -> pd.DataFrame:
+def consulta_completa(departamento: str, municipio: str, cultivo: str, numero_registros: int) -> pd.DataFrame:
     registros_filtrados = filtrar_registros(departamento, municipio, cultivo, numero_registros)
     medianas = calcular_mediana(registros_filtrados)
 

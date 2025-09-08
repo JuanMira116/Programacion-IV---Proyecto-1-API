@@ -6,10 +6,10 @@ def main():
     departamento, municipio, cultivo, numero_registros = pedir_datos_usuario()
 
     resultado = consulta_completa(
-        departamento=departamento,
-        municipio=municipio,
-        cultivo=cultivo,
-        numero_registros=numero_registros
+        departamento = departamento,
+        municipio = municipio,
+        cultivo = cultivo,
+        numero_registros = numero_registros
     )
 
     mostrar_resultado(resultado)
