@@ -1,39 +1,40 @@
+
 import pandas as pd
 
 EXCEL_PATH = "resultado_laboratorio_suelo.xlsx"
 
 def cargar_datos():
     try:
-        df = pd.read_excel(EXCEL_PATH)
-        df.columns = [col.strip() for col in df.columns]
+        base_de_datos = pd.read_excel(EXCEL_PATH)
+        base_de_datos.columns = [col.strip() for col in base_de_datos.columns]
 
-        return df
+        return base_de_datos
     except Exception as e:
         print("Error al cargar el archivo Excel:", e)
         return None
 
 
-def listar_departamentos(df):
-    return df["Departamento"].dropna().unique().tolist()
+def listar_departamentos(base_de_datos):
+    return base_de_datos["Departamento"].dropna().unique().tolist()
 
 
-def listar_municipios(df, departamento=None):
+def listar_municipios(base_de_datos, departamento=None):
     if departamento:
         return (
-            df[df["Departamento"].str.upper() == departamento.upper()]["Municipio"]
+            base_de_datos[base_de_datos["Departamento"].str.upper() == departamento.upper()]["Municipio"]
             .dropna()
             .unique()
             .tolist()
         )
-    return df["Municipio"].dropna().unique().tolist()
+    return base_de_datos["Municipio"].dropna().unique().tolist()
 
 
-def listar_cultivos(df, municipio=None):
+def listar_cultivos(base_de_datos, municipio=None):
     if municipio:
         return (
-            df[df["Municipio"].str.upper() == municipio.upper()]["Cultivo"]
+            base_de_datos[base_de_datos["Municipio"].str.upper() == municipio.upper()]["Cultivo"]
             .dropna()
             .unique()
             .tolist()
         )
-    return df["Cultivo"].dropna().unique().tolist()
+    return base_de_datos["Cultivo"].dropna().unique().tolist()

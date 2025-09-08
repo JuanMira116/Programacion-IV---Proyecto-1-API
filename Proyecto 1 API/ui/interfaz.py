@@ -1,4 +1,3 @@
-from api import consultas
 
 def pedir_datos_usuario():
     print("=== CONSULTA DE INFORMACIÓN EDÁFICA ===")
